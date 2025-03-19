@@ -14,9 +14,23 @@ struct NewsTab: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.articles) { article in
-                NavigationLink(destination: NewsWebView(article: article, isSaved: false)) {
-                    NewsRowView(article: article)
+            VStack {
+                if viewModel.articles.isEmpty {
+                    VStack {
+                        Image(systemName: "tray.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.gray)
+                        Text("No news feed available yet!")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                            .padding()
+                    }
+                } else {
+                    List(viewModel.articles) { article in
+                        NavigationLink(destination: NewsWebView(article: article, isSaved: false)) {
+                            NewsRowView(article: article)
+                        }
+                    }
                 }
             }
             .navigationTitle("Tech News")
