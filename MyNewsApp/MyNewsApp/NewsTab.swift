@@ -15,7 +15,9 @@ struct NewsTab: View {
     var body: some View {
         NavigationView {
             List(viewModel.articles) { article in
-                // show the articles
+                NavigationLink(destination: NewsWebView(article: article, isSaved: false)) {
+                    NewsRowView(article: article)
+                }
             }
             .navigationTitle("Tech News")
             .onAppear {
