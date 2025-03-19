@@ -25,8 +25,10 @@ struct NewsRowView: View {
             VStack(alignment: .leading) {
                 Text(article.title)
                     .font(.headline)
+                    .foregroundStyle(.black)
                 Text(article.description ?? "")
                     .font(.subheadline)
+                    .foregroundStyle(.black)
                     .lineLimit(2)
             }
         }
@@ -39,13 +41,13 @@ struct NewsWebView: View {
     let isSaved: Bool
     @Environment(\.managedObjectContext) private var viewContext
     
+    @State private var showAlert: Bool = false
+    
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             WebView(url: URL(string: article.url)!)
             
             if !isSaved {
-                
-                
                 Button(action: saveArticle) {
                     Image(systemName: "bookmark.fill")
                         .padding()
@@ -56,6 +58,9 @@ struct NewsWebView: View {
                         .padding()
                 }
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Article already saved!"), dismissButton: .destructive(Text("OK")))
         }
     }
     
@@ -77,6 +82,7 @@ struct NewsWebView: View {
                     try viewContext.save()
                     print("Article saved successfully!")
                 } else {
+                    showAlert = true
                     print("Article already saved, skipping duplicate entry.")
                 }
             } catch {

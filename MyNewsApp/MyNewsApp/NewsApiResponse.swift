@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Introducing this structure because Core Data only supports classes that inherit from NSManagedObject.
 struct Article: Identifiable, Codable {
     let id = UUID()
     let title: String
@@ -23,4 +24,16 @@ struct NewsResponse: Codable {
     let totalResults: Int
 }
 
-
+extension NewsArticle {
+    // This converts the CoreData entity to our local structure
+    func toArticle() -> Article {
+        return Article(
+            title: title ?? "",
+            description: titleDescription,
+            url: url ?? "",
+            urlToImage: urlToImage,
+            publishedAt: publishedAt ?? "",
+            content: content
+        )
+    }
+}

@@ -69,7 +69,7 @@ struct SavedArticleRow: View {
             }
         }
         .padding()
-        .background(Color(.gray))
+        .background(Color(.systemGray6))
         .cornerRadius(10)
         .shadow(radius: 2)
     }
