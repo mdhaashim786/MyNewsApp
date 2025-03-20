@@ -13,6 +13,20 @@ struct NewsRowView: View {
     @StateObject private var imageLoader = ImageLoader()
     var body: some View {
         HStack {
+            
+            //MARK: This can be commented to use cached image loader and uncomment the below code
+            
+            AsyncImage(url: URL(string: article.urlToImage ?? "")) { image in
+                image.resizable()
+            } placeholder: {
+                Color.gray
+            }
+            .frame(width: 100, height: 100)
+            .cornerRadius(8)
+            /*
+             
+             //MARK: This below UI can be used to cache the image instead of above AsyncImage
+             
             if let image = imageLoader.image {
                 Image(uiImage: image)
                     .resizable()
@@ -26,6 +40,7 @@ struct NewsRowView: View {
                         imageLoader.loadImage(from: article.urlToImage)
                     }
             }
+             */
             
             VStack(alignment: .leading) {
                 Text(article.title)
@@ -47,6 +62,7 @@ struct NewsWebView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @State private var showAlert: Bool = false
+    @State private var alertTtile: String = ""
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -65,7 +81,7 @@ struct NewsWebView: View {
             }
         }
         .alert(isPresented: $showAlert) {
-            Alert(title: Text("Article already saved!"), dismissButton: .destructive(Text("OK")))
+            Alert(title: Text(alertTtile), dismissButton: .destructive(Text("OK")))
         }
     }
     
@@ -85,8 +101,11 @@ struct NewsWebView: View {
                     savedArticle.urlToImage = article.urlToImage
                     
                     try viewContext.save()
+                    alertTtile = "Article saved successfully"
+                    showAlert = true
                     print("Article saved successfully!")
                 } else {
+                    alertTtile = "Article already saved!"
                     showAlert = true
                     print("Article already saved, skipping duplicate entry.")
                 }
