@@ -10,17 +10,22 @@ import CoreData
 
 struct NewsRowView: View {
     let article: Article
-    
+    @StateObject private var imageLoader = ImageLoader()
     var body: some View {
         HStack {
-            AsyncImage(url: URL(string: article.urlToImage ?? "")) { image in
-                image.resizable()
-            } placeholder: {
+            if let image = imageLoader.image {
+                Image(uiImage: image)
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(8)
+            } else {
                 Color.gray
+                    .frame(width: 100, height: 100)
+                    .cornerRadius(8)
+                    .onAppear {
+                        imageLoader.loadImage(from: article.urlToImage)
+                    }
             }
-            .frame(width: 100, height: 100)
-            .cornerRadius(8)
-      
             
             VStack(alignment: .leading) {
                 Text(article.title)
