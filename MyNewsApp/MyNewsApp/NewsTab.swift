@@ -10,30 +10,30 @@ import WebKit
 import CoreData
 
 enum NewsFilters: String, CaseIterable {
-    case business
-    case sports
-    case technology
+    case Business
+    case Sports
+    case Technology
     
 }
 
 struct NewsTab: View {
     @ObservedObject var viewModel: NewsViewModel
-    @State private var filterOption: NewsFilters = .business
+    @State private var filterOption: NewsFilters = .Business
     
     var body: some View {
         NavigationView {
             VStack {
                 HStack {
-                    FilterButton(title: "Business", isSelected: filterOption == .business) {
-                        filterOption = .business
+                    FilterButton(title: "Business", isSelected: filterOption == .Business) {
+                        filterOption = .Business
                     }
                     
-                    FilterButton(title: "Technology", isSelected: filterOption == .technology) {
-                        filterOption = .technology
+                    FilterButton(title: "Technology", isSelected: filterOption == .Technology) {
+                        filterOption = .Technology
                     }
                     
-                    FilterButton(title: "Sports", isSelected: filterOption == .sports) {
-                        filterOption = .sports
+                    FilterButton(title: "Sports", isSelected: filterOption == .Sports) {
+                        filterOption = .Sports
                     }
                     
                     Spacer()
@@ -71,7 +71,7 @@ struct NewsTab: View {
                 }
                 Spacer()
             }
-            .navigationTitle("Tech News")
+            .navigationTitle("\(filterOption.rawValue) News")
             .onChange(of: filterOption) {
                 viewModel.newsFilter = filterOption
                 viewModel.fetchNews()

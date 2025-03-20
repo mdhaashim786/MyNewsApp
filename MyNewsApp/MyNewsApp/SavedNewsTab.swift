@@ -58,6 +58,9 @@ struct SavedArticleRow: View {
             }
             
             HStack {
+                ShareLink(item: URL(string: article.url ?? "")!) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
                 Spacer()
                 Button(action: deleteAction) {
                     Image(systemName: "trash")

@@ -10,7 +10,7 @@ import SwiftUI
 class NewsViewModel: ObservableObject {
     @Published var articles: [Article] = []
     @Published var isLoading: Bool = true
-    @Published var newsFilter: NewsFilters = .business
+    @Published var newsFilter: NewsFilters = .Business
     
     func fetchNews() {
         let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=\(newsFilter.rawValue)&apiKey=39e6e86fc4184a20b1c6710d60503475"
