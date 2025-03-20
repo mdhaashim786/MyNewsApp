@@ -45,10 +45,8 @@ struct NewsRowView: View {
             VStack(alignment: .leading) {
                 Text(article.title)
                     .font(.headline)
-                    .foregroundStyle(.black)
                 Text(article.description ?? "")
                     .font(.subheadline)
-                    .foregroundStyle(.black)
                     .lineLimit(2)
             }
         }
