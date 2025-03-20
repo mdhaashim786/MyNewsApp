@@ -14,6 +14,7 @@ It follows **Apple's Human Interface Guidelines (HIG)**, focusing on **intuitive
 ### 📝 **News Article Management**
 - ✅ **Fetching articles**: Articles are fetched using URLSession.
 - ✅ **Offline saved articles**: Articles are saved offline when save button is clicked.
+- ✅ **Avoid duplicate saving article**: Avoid saving of duplicate article in saved tab
 
 ### 🔎 ** Filtering**
 - **Sorting Options**:
