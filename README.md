@@ -12,7 +12,8 @@ It follows **Apple's Human Interface Guidelines (HIG)**, focusing on **intuitive
 ## 🚀 Features
 
 ### 📝 **News Article Management**
-- ✅ **Fetching articles**: Articles are fetched using URLSession
+- ✅ **Fetching articles**: Articles are fetched using URLSession.
+- ✅ **Offline saved articles**: Articles are saved offline when save button is clicked.
 
 ### 🔎 ** Filtering**
 - **Sorting Options**:
@@ -100,6 +101,7 @@ Press Cmd + R to build and Run
 * NavigationStack for modern navigation.
 * Lists are used while fetching news articles from the api & LazyVStack for a saved news articles list.
 * @StateObject & @FetchRequest to manage Core Data efficiently.
+* Content for offline article will load and save only after saving the article.
 
 ### 2️⃣  **Theming & Adaptability**
 
