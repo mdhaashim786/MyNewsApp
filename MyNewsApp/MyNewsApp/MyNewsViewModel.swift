@@ -31,6 +31,7 @@ class NewsViewModel: ObservableObject {
             
             if let error = error {
                 self.isLoading = false
+                print("Unexpected error: \(error).")
             }
         }.resume()
     }
