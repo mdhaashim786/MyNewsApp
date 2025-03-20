@@ -15,7 +15,15 @@ struct NewsTab: View {
     var body: some View {
         NavigationView {
             VStack {
-                if viewModel.articles.isEmpty {
+                if viewModel.isLoading {
+                    VStack(spacing: 20) {
+                        ProgressView()
+                            .progressViewStyle(.automatic)
+                        Text("Loading...")
+                            .font(.headline)
+                    }
+                }
+                else if viewModel.articles.isEmpty {
                     VStack {
                         Image(systemName: "tray.fill")
                             .font(.largeTitle)
