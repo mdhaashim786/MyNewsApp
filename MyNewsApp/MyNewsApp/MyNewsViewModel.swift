@@ -10,9 +10,10 @@ import SwiftUI
 class NewsViewModel: ObservableObject {
     @Published var articles: [Article] = []
     @Published var isLoading: Bool = true
+    @Published var newsFilter: NewsFilters = .business
     
     func fetchNews() {
-        let urlString = "https://newsapi.org/v2/everything?q=apple&from=2025-03-16&to=2025-03-16&sortBy=popularity&apiKey=39e6e86fc4184a20b1c6710d60503475"
+        let urlString = "https://newsapi.org/v2/top-headlines?country=us&category=\(newsFilter.rawValue)&apiKey=39e6e86fc4184a20b1c6710d60503475"
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { data, _, error in
