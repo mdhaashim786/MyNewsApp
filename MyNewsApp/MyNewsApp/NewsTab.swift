@@ -21,6 +21,8 @@ struct NewsTab: View {
     @State private var filterOption: NewsFilters = .Business
     @Binding var appColorMode: ColorScheme
     
+    @StateObject var networkMnanager = NetworkManager()
+    
     var body: some View {
         NavigationView {
             VStack {

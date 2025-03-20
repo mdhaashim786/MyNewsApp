@@ -59,12 +59,18 @@ struct NewsWebView: View {
     let isSaved: Bool
     @Environment(\.managedObjectContext) private var viewContext
     
+    @ObservedObject var networkMonitor = NetworkManager()
+    
     @State private var showAlert: Bool = false
     @State private var alertTtile: String = ""
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            WebView(url: URL(string: article.url)!)
+            if networkMonitor.isConnected {
+                WebView(url: URL(string: article.url)!) // Online mode
+            } else {
+                OfflineWebView(article: article) // Offline mode
+            }
             
             if !isSaved {
                 Button(action: saveArticle) {
@@ -98,6 +104,8 @@ struct NewsWebView: View {
                     savedArticle.url = article.url
                     savedArticle.urlToImage = article.urlToImage
                     
+                    fetchAndSaveHTML(for: article)
+                    
                     try viewContext.save()
                     alertTtile = "Article saved successfully"
                     showAlert = true
@@ -111,6 +119,31 @@ struct NewsWebView: View {
                 print("Failed to check existing article: \(error.localizedDescription)")
             }
         
+    }
+    
+    func fetchAndSaveHTML(for article: Article) {
+        guard  let url = URL(string: article.url) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data, let htmlContent = String(data: data, encoding: .utf8) {
+                DispatchQueue.main.async {
+                    self.saveArticleHTML(url: article.url, htmlContent: htmlContent)
+                }
+            } else {
+                print("Failed to fetch HTML: \(error?.localizedDescription ?? "Unknown error")")
+            }
+        }
+        task.resume()
+    }
+    
+    func saveArticleHTML(url: String, htmlContent: String) {
+        let request: NSFetchRequest<NewsArticle> = NewsArticle.fetchRequest()
+        request.predicate = NSPredicate(format: "url == %@", url)
+        
+        if let savedArticle = try? viewContext.fetch(request).first {
+            savedArticle.htmlContent = htmlContent
+            try? viewContext.save()
+        }
     }
 }
 

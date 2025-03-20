@@ -16,6 +16,7 @@ struct Article: Identifiable, Codable {
     let urlToImage: String?
     let publishedAt: String
     let content: String?
+    let htmlContent: String?
 }
 
 struct NewsResponse: Codable {
@@ -33,7 +34,8 @@ extension NewsArticle {
             url: url ?? "",
             urlToImage: urlToImage,
             publishedAt: publishedAt ?? "",
-            content: content
+            content: content,
+            htmlContent: htmlContent
         )
     }
 }
