@@ -11,10 +11,13 @@ import SwiftUI
 struct MyNewsApp: App {
     let persistenceController = PersistenceController.shared
 
+    @State var appColorMode: ColorScheme = .dark
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(appColorMode: $appColorMode)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .preferredColorScheme(appColorMode)
         }
     }
 }

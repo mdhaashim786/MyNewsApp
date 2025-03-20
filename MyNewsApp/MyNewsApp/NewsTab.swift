@@ -19,6 +19,7 @@ enum NewsFilters: String, CaseIterable {
 struct NewsTab: View {
     @ObservedObject var viewModel: NewsViewModel
     @State private var filterOption: NewsFilters = .Business
+    @Binding var appColorMode: ColorScheme
     
     var body: some View {
         NavigationView {
@@ -38,7 +39,12 @@ struct NewsTab: View {
                     
                     Spacer()
                     
-                    
+                    Button(action: {
+                        appColorMode = appColorMode == .light ? .dark : .light
+                    }, label: {
+                        Label("", systemImage: appColorMode == .light ? "moon.fill" : "sun.max.fill")
+                            .font(.system(size: 24))
+                    })
                     
                 }
                 .padding(.leading, 20)

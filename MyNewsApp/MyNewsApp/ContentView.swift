@@ -11,10 +11,11 @@ import CoreData
 struct ContentView: View {
     
     @StateObject private var viewModel = NewsViewModel()
+    @Binding var appColorMode: ColorScheme
 
     var body: some View {
         TabView {
-            NewsTab(viewModel: viewModel)
+            NewsTab(viewModel: viewModel, appColorMode: $appColorMode)
                 .tabItem {
                     Label("News", systemImage: "newspaper")
                 }
