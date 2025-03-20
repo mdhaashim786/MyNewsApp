@@ -126,3 +126,21 @@ struct WebView: UIViewRepresentable {
         uiView.load(URLRequest(url: url))
     }
 }
+
+
+struct OfflineWebView: UIViewRepresentable {
+    let article: Article
+
+    func makeUIView(context: Context) -> WKWebView {
+        let webView = WKWebView()
+        
+        if let htmlContent = article.htmlContent, !htmlContent.isEmpty {
+            webView.loadHTMLString(htmlContent, baseURL: nil) // Load offline
+        }
+        
+        return webView
+    }
+
+    func updateUIView(_ uiView: WKWebView, context: Context) {}
+}
+
