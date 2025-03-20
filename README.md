@@ -36,7 +36,7 @@ It follows **Apple's Human Interface Guidelines (HIG)**, focusing on **intuitive
 
 ### 🚀 **Performance Optimization**
 - ⚡ **Efficient Core Data Fetching**: Uses **@StateObject & @FetchRequest**.
-- 📜 **LazyVStack for Scrolling**: Handles **100+ tasks** smoothly.
+- 📜 **LazyVStack and List for Scrolling**: Handles **100+ tasks** smoothly.
 
 ---
 
@@ -98,7 +98,7 @@ Press Cmd + R to build and Run
 ### 1️⃣  **UI Architecture (SwiftUI 5)**
 
 * NavigationStack for modern navigation.
-* List & LazyVStack for a performant task list.
+* Lists are used while fetching news articles from the api & LazyVStack for a saved news articles list.
 * @StateObject & @FetchRequest to manage Core Data efficiently.
 
 ### 2️⃣  **Theming & Adaptability**
